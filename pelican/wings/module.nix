@@ -35,7 +35,14 @@ let
       user = {
         uid = config.users.users.${cfg.user}.uid;
         gid = config.users.groups.${cfg.group}.gid;
-        passwd_file = "${cfg.runDir}/passwd";
+        passwd = {
+          enable = true;
+          directory = "${cfg.runDir}/passwd";
+        };
+      };
+      machine_id = {
+        enable = true;
+        directory = "${cfg.runDir}/machine-id";
       };
       sftp = {
         bind_address = cfg.system.sftp.host;
@@ -328,6 +335,7 @@ in
     systemd.tmpfiles.settings."10-pelican-wings" =
       lib.attrsets.genAttrs
         [
+          "${cfg.rootDir}/machine-id"
           "${cfg.rootDir}/volumes"
           "${cfg.rootDir}/volumes/.sftp"
           "${cfg.rootDir}/archives"
