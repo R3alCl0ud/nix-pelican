@@ -191,6 +191,8 @@ in
     };
 
     app = {
+
+
       name = lib.mkOption {
         type = lib.types.str;
         default = "Pelican";
@@ -230,6 +232,11 @@ in
       url = lib.mkOption {
         type = lib.types.str;
         description = "The URL of the panel";
+      };
+
+      port = lib.mkOption {
+        type = lib.types.str;
+        description = "The PORT of the panel in Nginx";
       };
       # HYTHERA: ENV Only?
     };
@@ -606,6 +613,12 @@ in
       recommendedGzipSettings = lib.mkDefault true;
       virtualHosts."${builtins.replaceStrings [ "https://" "http://" ] [ "" "" ] cfg.app.url}" = {
         root = "${cfg.package}/public";
+        listen = [
+          {
+            addr = cfg.app.url;
+            port = cfg.app.port;
+          }
+        ]
         extraConfig = ''
           index index.php;
           client_max_body_size 100m;
