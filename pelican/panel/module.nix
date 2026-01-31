@@ -618,7 +618,7 @@ in
             addr = cfg.app.url;
             port = cfg.app.port;
           }
-        ]
+        ];
         extraConfig = ''
           index index.php;
           client_max_body_size 100m;
