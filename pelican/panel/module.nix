@@ -235,7 +235,7 @@ in
       };
 
       port = lib.mkOption {
-        type = lib.types.str;
+        type = lib.types.port;
         description = "The PORT of the panel in Nginx";
       };
       # HYTHERA: ENV Only?
